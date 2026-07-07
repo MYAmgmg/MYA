@@ -13,25 +13,42 @@ body{
     user-select: none;
 }
 
-body::before{
-    content:"♡ ♥ ♡ ♥ ♡";
-    color:#ffffff;
+
+.heart-bg{
     position:fixed;
     inset:0;
-    font-size:28px;
-    opacity:.2;
-    letter-spacing:70px;
-    line-height:120px;
+    overflow:hidden;
     pointer-events:none;
-    animation:float 25s linear infinite;
+    z-index:999;
 }
 
-@keyframes float{
-    from{
-        transform:translateY(0);
+.heart{
+    position:absolute;
+    color:#fff;
+    opacity:.2;
+    animation:heartFloat linear infinite;
+    text-shadow:
+        0 0 10px #ff9ecf,
+        0 0 20px #ff69b4;
+}
+
+@keyframes heartFloat{
+    0%{
+        transform:translate(0,110vh) scale(1);
+        opacity:0;
     }
-    to{
-        transform:translateY(-120px);
+
+    20%{
+        opacity:.25;
+    }
+
+    50%{
+        transform:translate(var(--sway),40vh) scale(1.1);
+    }
+
+    100%{
+        transform:translate(calc(var(--sway) * -1),-20vh) scale(1.2);
+        opacity:0;
     }
 }
 

@@ -43,11 +43,12 @@ padding: 0;
 }
 
 body {
-    font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic Pro", sans-serif;
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic Pro", sans-serif;
     background:
-        radial-gradient(circle at 0% 20%, #ffdbef 0%, transparent 20%),
-        radial-gradient(circle at 85% 60%, #ffd0f4 0%, transparent 35%),
-        radial-gradient(circle at 30% 85%, #ffdeff 0%, transparent 40%),
+        radial-gradient(circle at 0% 40%, #ffdeff 0%, transparent 20%),
+        radial-gradient(circle at 60% 5%, #ffdbef 0%, transparent 50%),
+        radial-gradient(circle at 85% 80%, #ffd0f4 0%, transparent 15%),
+        
         #fffaff;
     background-attachment: fixed;
     color: var(--text-color);
@@ -66,11 +67,10 @@ text-align: center;
 }
 
 h1 {
-    color: #d63384;
-    font-size: 28px;
-    
-    text-shadow: 0 2px 10px #ffd2eb;
-    margin-bottom: 10px;
+    color:#fef;
+    text-shadow:
+        0 0 8px #d63384,
+        0 0 15px #ffb6d9;
 }
 
 h2{
@@ -85,7 +85,6 @@ flex-wrap: wrap;
 justify-content: center;
 }
 
-select,
 button{
     padding:10px 16px;
     border-radius:30px;
@@ -321,4 +320,122 @@ max-width: 450px;
     z-index:100;
 
     display:none;
+}
+.heart-bg{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:999;
+}
+
+.heart{
+    position:absolute;
+    color:#fff;
+    opacity:.2;
+    animation:heartFloat linear infinite;
+    text-shadow:
+        0 0 10px #ff9ecf,
+        0 0 20px #ff69b4;
+}
+@keyframes heartFloat{
+    0%{
+        transform:translate(0,110vh) scale(1);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.25;
+    }
+
+    50%{
+        transform:translate(var(--sway),40vh) scale(1.1);
+    }
+
+    100%{
+        transform:translate(calc(var(--sway) * -1),-20vh) scale(1.2);
+        opacity:0;
+    }
+}
+
+/* 難易度プルダウン */
+#difficulty {
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width:120px;
+    height:44px;
+
+    padding:0 40px 0 18px;
+
+    border-radius:30px;
+
+    border:2px solid #f3b2d2;
+
+    background:linear-gradient(#fff,#ffe8f5);
+
+    color:#b63d7d;
+
+    font-family:"Zen Maru Gothic", sans-serif;
+
+    font-weight:bold;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    box-shadow:
+        0 3px 10px rgba(255,150,200,.25);
+
+    transition:.25s;
+
+    /* 矢印 */
+    background-image:
+        linear-gradient(45deg, transparent 50%, #d63384 50%),
+        linear-gradient(135deg, #d63384 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 20px) 18px,
+        calc(100% - 14px) 18px;
+
+    background-size:
+        7px 7px,
+        7px 7px;
+
+    background-repeat:no-repeat;
+}
+
+
+#difficulty:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(255,120,180,.35);
+
+}
+
+
+#difficulty:focus{
+
+    outline:none;
+
+    border-color:#ff5da2;
+
+    box-shadow:
+        0 0 12px rgba(255,93,162,.4);
+
+}
+
+
+#difficulty option{
+
+    color:#b63d7d;
+
+    background:#fffaff;
+
 }
