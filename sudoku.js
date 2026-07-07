@@ -470,3 +470,45 @@ setInterval(createHeart,500);
 for(let i=0;i<40;i++){
     createHeart();
 }
+
+
+
+// --- カスタムプルダウンの制御 ---
+document.addEventListener("DOMContentLoaded", () => {
+    const customSelect = document.querySelector(".custom-select");
+    const trigger = document.querySelector(".custom-select-trigger");
+    const options = document.querySelectorAll(".custom-option");
+    const hiddenInput = document.getElementById("difficulty");
+    const triggerText = document.getElementById("difficulty-text");
+
+    // プルダウンの開閉
+    trigger.addEventListener("click", function(e) {
+        e.stopPropagation(); // 外側クリック検知との干渉を防ぐ
+        customSelect.classList.toggle("open");
+    });
+
+    // 選択肢をクリックした時の処理
+    options.forEach(option => {
+        option.addEventListener("click", function(e) {
+            e.stopPropagation();
+            
+            // 選択状態の見た目を更新
+            options.forEach(opt => opt.classList.remove("selected"));
+            this.classList.add("selected");
+
+            // テキストと隠しinputの値を更新
+            triggerText.textContent = this.textContent;
+            hiddenInput.value = this.getAttribute("data-value");
+
+            // プルダウンを閉じる
+            customSelect.classList.remove("open");
+        });
+    });
+
+    // プルダウンの外側をクリックしたら閉じる
+    window.addEventListener("click", function(e) {
+        if (!customSelect.contains(e.target)) {
+            customSelect.classList.remove("open");
+        }
+    });
+});

@@ -16,11 +16,20 @@
 </header>
 
 <div class="controls">
-<select id="difficulty">
-<option value="easy">初級</option>
-<option value="medium" selected>中級</option>
-<option value="hard">上級</option>
-</select>
+<div class="custom-select-wrapper" id="difficulty-wrapper">
+    <div class="custom-select">
+        <div class="custom-select-trigger">
+            <span id="difficulty-text">中級</span>
+            <div class="arrow"></div>
+        </div>
+        <div class="custom-options">
+            <span class="custom-option" data-value="easy">初級</span>
+            <span class="custom-option selected" data-value="medium">中級</span>
+            <span class="custom-option" data-value="hard">上級</span>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="difficulty" value="medium">
 <button id="btn-new">新しい問題</button>
 </div>
 

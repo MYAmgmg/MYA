@@ -359,83 +359,108 @@ max-width: 450px;
 }
 
 /* 難易度プルダウン */
-#difficulty {
+/* --- カスタムプルダウンのスタイル --- */
+.custom-select-wrapper {
+    position: relative;
+    width: 120px;
+    user-select: none;
+}
 
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+.custom-select {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
 
-    width:120px;
-    height:44px;
-
-    padding:0 40px 0 18px;
-
+/* プルダウンのボタン部分 */
+.custom-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:10px 16px;
     border-radius:30px;
-
     border:2px solid #f3b2d2;
-
     background:linear-gradient(#fff,#ffe8f5);
-
     color:#b63d7d;
-
-    font-family:"Zen Maru Gothic", sans-serif;
-
     font-weight:bold;
-
-    font-size:16px;
-
-    cursor:pointer;
-
-    text-align:center;
-
-    box-shadow:
-        0 3px 10px rgba(255,150,200,.25);
-
-    transition:.25s;
-
-    /* 矢印 */
-    background-image:
-        linear-gradient(45deg, transparent 50%, #d63384 50%),
-        linear-gradient(135deg, #d63384 50%, transparent 50%);
-
-    background-position:
-        calc(100% - 20px) 18px,
-        calc(100% - 14px) 18px;
-
-    background-size:
-        7px 7px,
-        7px 7px;
-
-    background-repeat:no-repeat;
+    font-family: "Zen Maru Gothic", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(255,150,200,.25);
+    transition: .25s;
 }
 
-
-#difficulty:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 6px 18px rgba(255,120,180,.35);
-
+.custom-select-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255,120,180,.35);
+    border-color: #ff92c5;
 }
 
-
-#difficulty:focus{
-
-    outline:none;
-
-    border-color:#ff5da2;
-
-    box-shadow:
-        0 0 12px rgba(255,93,162,.4);
-
+.custom-select.open .custom-select-trigger {
+    border-color: #ff5da2;
+    box-shadow: 0 0 12px rgba(255,93,162,.4);
 }
 
+/* 下向き矢印 */
+.custom-select-trigger .arrow {
+    width: 8px;
+    height: 8px;
+    border-right: 3px solid #d63384;
+    border-bottom: 3px solid #d63384;
+    transform: rotate(45deg) translateY(-2px);
+    transition: .3s;
+    border-radius: 2px;
+}
 
-#difficulty option{
+.custom-select.open .custom-select-trigger .arrow {
+    transform: rotate(-135deg) translate(-2px, -2px); /* 開いた時は上向きに */
+}
 
-    color:#b63d7d;
+/* プルダウンのリスト部分（ここを角丸に！） */
+.custom-options {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #fffaff;
+    border: 2px solid #f3b2d2;
+    border-radius: 18px; /* 可愛い角丸 */
+    box-shadow: 0 10px 25px rgba(255,140,190,.35);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* ぽよんと出るアニメーション */
+    z-index: 1000;
+}
 
-    background:#fffaff;
+.custom-select.open .custom-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
 
+/* 各選択肢 */
+.custom-option {
+    display: block;
+    padding: 10px 18px;
+    color: #b63d7d;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+    text-align: center;
+}
+
+.custom-option:not(:last-child) {
+    border-bottom: 1px dashed #f3b2d2;
+}
+
+.custom-option:hover {
+    background: #ffd6ec;
+    color: #d63384;
+}
+
+.custom-option.selected {
+    background: #ff5da2;
+    color: white;
 }
