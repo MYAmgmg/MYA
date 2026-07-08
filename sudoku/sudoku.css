@@ -54,7 +54,7 @@ body {
         #fffaff;
     background-attachment: fixed;
     color: var(--text-color);
-
+    
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -512,3 +512,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+if (/iPhone|Android.+Mobile/.test(navigator.userAgent)) {
+    document.body.addEventListener(
+        "touchmove",
+        function (e) {
+            e.preventDefault();
+        },
+        { passive: false }
+    );
+}
