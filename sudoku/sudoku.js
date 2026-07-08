@@ -445,7 +445,7 @@ function createHeart(){
     );
 
     // スピード
-    const duration = Math.random()*15 + 10;
+    const duration = Math.random()*15 + 20;
     heart.style.animationDuration = duration + "s";
 
     // 開始位置をずらす
@@ -467,7 +467,7 @@ setInterval(createHeart,500);
 
 
 // 最初から大量配置
-for(let i=0;i<40;i++){
+for(let i=0;i<15;i++){
     createHeart();
 }
 
