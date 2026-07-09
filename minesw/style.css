@@ -274,3 +274,35 @@ h1{
     background:#ff8cc7;
     color:#2b0d21;
 }
+/* ★追加：フラッグモードボタンの基本スタイル */
+#flag-mode-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: inherit;
+    color: #ffd3ea;
+    background: #2b0d21;
+    border: 2px solid #ff8cc7;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: .2s;
+    margin-left: 10px; /* ボタン同士の間隔 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+
+#flag-mode-btn:hover {
+    background: #3d1430;
+    transform: translateY(-2px);
+}
+
+/* ★追加：フラッグモードがON（active）のときのデザイン（ピンクに光る） */
+#flag-mode-btn.active {
+    color: #ffe6f3;
+    background: linear-gradient(180deg, #ff7eb8, #d63384);
+    border-color: #ffb3d9;
+    box-shadow: 
+        0 0 15px rgba(255,120,180,.6),
+        0 4px 12px rgba(0,0,0,.35),
+        inset 0 1px 3px rgba(255,255,255,.35);
+    text-shadow: 0 0 6px rgba(255,255,255,.6);
+}
