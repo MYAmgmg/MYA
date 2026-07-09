@@ -59,24 +59,31 @@ h1{
         0 0 15px #ffb6d9;
 }
 
+
 #board{
-    --size: 20;
-    
-    aspect-ratio: 1 / 1;
-    display: grid;
-    grid-template-columns: repeat(var(--size), 1fr);
-    grid-template-rows: repeat(var(--size), 1fr);
-    width: min(95vw, 600px);
+    position: relative; /* ★これを入れることで、点線がボードを基準に配置されます */
+
+    --width:16;
+    --height:25;
+
+    display:grid;
+
+    grid-template-columns:repeat(var(--width),1fr);
+    grid-template-rows:repeat(var(--height),1fr);
+
+    width:min(95vw,500px);
+
+    /* aspect-ratio:16 / 25; */
+    aspect-ratio: var(--width) / var(--height); /* ★難易度に合わせて比率が自動で変わるようにします */
+
     margin:30px auto;
+
     gap:3px;
+
     background:#2b0d21;
     padding:10px;
     border-radius:18px;
-    border:3px solid #ff8cc7;
-    box-shadow:
-        0 0 20px rgba(255,120,180,.45),
-        inset 0 0 15px rgba(255,255,255,.2);
-    position:relative;
+    border:3px solid #ff9fcd;
 }
 
 .cell{

@@ -51,7 +51,8 @@ for(let i=0;i<40;i++){
     createHeart();
 }
 
-let SIZE = 20;
+let WIDTH = 16;
+let HEIGHT = 25;
 let MINES = 99;
 
 const board = document.getElementById("board");
@@ -60,8 +61,13 @@ const message = document.getElementById("message");
 const flags = document.getElementById("flags");
 document.querySelectorAll("#difficulty button").forEach(btn => {
     btn.onclick = () => {
-        SIZE = Number(btn.dataset.size);
+        const size = Number(btn.dataset.size);
+        
+        WIDTH = size;
+        // data-height属性があればそれを使い、無ければ width（size）と同じにする
+        HEIGHT = btn.dataset.height ? Number(btn.dataset.height) : size;
         MINES = Number(btn.dataset.mines);
+        
         init();
     };
 });
@@ -75,15 +81,16 @@ function init(){
 
     message.textContent = "";
     board.innerHTML="";
-    board.style.setProperty("--size", SIZE);
+    board.style.setProperty("--width", WIDTH);
+    board.style.setProperty("--height", HEIGHT);
     cells=[];
     gameOver=false;
     updateFlags();
     // 配列作成
-    for(let y=0;y<SIZE;y++){
+    for(let y=0;y<HEIGHT;y++){
         cells[y]=[];
 
-        for(let x=0;x<SIZE;x++){
+        for(let x=0;x<WIDTH;x++){
 
             const div=document.createElement("div");
             div.className="cell";
@@ -123,8 +130,8 @@ function init(){
 
     while(placed<MINES){
 
-        let x=Math.floor(Math.random()*SIZE);
-        let y=Math.floor(Math.random()*SIZE);
+        let x=Math.floor(Math.random()*WIDTH);
+        let y=Math.floor(Math.random()*HEIGHT);
 
         if(!cells[y][x].mine){
             cells[y][x].mine=true;
@@ -133,8 +140,8 @@ function init(){
     }
 
     // 数字計算
-    for(let y=0;y<SIZE;y++){
-        for(let x=0;x<SIZE;x++){
+    for(let y=0;y<HEIGHT;y++){
+        for(let x=0;x<WIDTH;x++){
 
             if(cells[y][x].mine)continue;
 
@@ -148,7 +155,7 @@ function init(){
                     let nx=x+dx;
                     let ny=y+dy;
 
-                    if(nx>=0&&ny>=0&&nx<SIZE&&ny<SIZE){
+                    if(nx>=0&&ny>=0&&nx<WIDTH&&ny<HEIGHT){
 
                         if(cells[ny][nx].mine)count++;
 
@@ -213,7 +220,7 @@ function openCell(x,y){
                 let nx=x+dx;
                 let ny=y+dy;
 
-                if(nx>=0&&ny>=0&&nx<SIZE&&ny<SIZE){
+                if(nx>=0&&ny>=0&&nx<WIDTH&&ny<HEIGHT){
 
                     if(!cells[ny][nx].open){
 
@@ -263,7 +270,7 @@ function checkWin(){
         }
     }
 
-    if(opened===SIZE*SIZE-MINES){
+    if(opened===WIDTH*HEIGHT-MINES){
 
         message.textContent="✨ Game Clear";
         
