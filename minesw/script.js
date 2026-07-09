@@ -47,7 +47,7 @@ setInterval(createHeart,500);
 
 
 // 最初から大量配置
-for(let i=0;i<40;i++){
+for(let i=0;i<20;i++){
     createHeart();
 }
 
