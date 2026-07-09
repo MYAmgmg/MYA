@@ -1,0 +1,363 @@
+/* --- カラー・変数定義 --- */
+        :root {
+            --bg-color: #ffeeff;      /* 基調色（薄ピンク） */
+            --pami-pink: #ff6699;     /* 病みピンク */
+            --jirai-black: #1a1118;   /* 地雷黒 */
+            --yami-purple: #cda4de;   /* 病み紫 */
+            --white: #ffffff;
+        }
+
+        /* --- 全体レイアウト --- */
+        * {
+            box-sizing: border-box;
+        }
+        /* --- 1. body の修正 --- */
+/* --- body の修正 --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    font-family: 'Georgia', 'YuMincho', 'Hiragino Mincho ProN', serif;
+    color: var(--jirai-black);
+    position: relative;
+
+   
+    width: 100vw;       /* 画面の横幅を100%にロック */
+    height: 100vh;      /* 画面の縦幅を100%にロック（min-height から変更） */
+    overflow: hidden;   /* はみ出たハートを完全に画面外へ切り捨てる */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+        
+        
+
+        /* 背景のサブカル・ドットパターン */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(var(--yami-purple) 12%, transparent 12%),
+                radial-gradient(var(--yami-purple) 12%, transparent 12%);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+            opacity: 0.25;
+            z-index: -1;
+        }
+
+        
+
+       /* --- 2. .error-container の修正 --- */
+.error-container {
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    padding: 50px 30px;
+
+    border-radius: 24px;
+
+    border: 3px double var(--pami-pink);
+
+    box-shadow: 0 12px 30px rgba(255, 102, 153, 0.15);
+
+    max-width: 460px;
+
+    width: 90%;
+
+    backdrop-filter: blur(4px);
+
+    z-index: 10;
+
+    height: max-content;
+
+}
+
+        /* リボンや装飾をイメージした絵文字 */
+
+        
+
+/* ハート全体のコンテナ */
+
+    /* --- 共通設定（位置と回転はここから消す） --- */
+.broken-heart {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  z-index: 9999;
+  /* 💡 top, left, transform はここから削除しました */
+}
+
+/* --- 💡ここから個別の場所を指定する --- */
+
+/* 1つ目のハート（今までの場所） */
+.pos-1 {
+  top: -18%;
+  left: -20%;
+  transform: scale(0.5) rotate(-20deg); /* 元のサイズ・角度 */
+}
+
+/* 2つ目のハート（新しい別の場所） */
+.pos-2 {
+  top: 70%;                           /* 💡好きな高さに調整 */
+  left: 70%;                          /* 💡好きな横位置に調整 */
+  transform: scale(0.5) rotate(15deg); /* 💡角度も個別で変えられます（例: 右に15度傾ける） */
+}
+.pos-1 .heart-shape {
+  background: var(--jirai-black);
+}
+
+.pos-2 .heart-shape{
+  background:var(--pami-pink);
+}
+
+    /* 左右の破片の共通設定 */
+    .half {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* 純CSSで作るベースのハート形状 */
+    .heart-shape {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #000; /* ハートの赤色 */
+      top: 60px;
+      left: 50px;
+      transform: rotate(-45deg);
+    }
+
+    .heart-shape::before,
+    .heart-shape::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: inherit;
+      border-radius: 50%;
+    }
+
+    /* ハートの左の丸み */
+    .heart-shape::before {
+      top: -50px;
+      left: 0;
+    }
+
+    /* ハートの右の丸み */
+    .heart-shape::after {
+      top: 0;
+      left: 50px;
+    }
+
+    /* --- ここから割る処理 --- */
+
+    /* 左半分の切り抜きと初期のズレ */
+    .left {
+      clip-path: polygon(
+        0% 0%, 
+        50% 0%, 
+        50% 25%, 
+        46% 38%, 
+        54% 50%, 
+        45% 65%, 
+        53% 78%, 
+        50% 90%, 
+        50% 100%, 
+        0% 100%
+      );
+      transform: translateX(-10px) translateY(2px) rotate(-3deg);
+    }
+
+    /* 右半分の切り抜きと初期のズレ（左と完全に噛み合うジグザグ） */
+    .right {
+      clip-path: polygon(
+        50% 0%, 
+        100% 0%, 
+        100% 100%, 
+        50% 100%, 
+        50% 90%, 
+        53% 78%, 
+        45% 65%, 
+        54% 50%, 
+        46% 38%, 
+        50% 25%
+      );
+      transform: translateX(10px) translateY(-2px) rotate(3deg);
+    }
+
+    /* --- ホバー時のアニメーション --- */
+    
+    /* マウスを乗せるとさらに大きく割れる */
+    .broken-heart:hover .left {
+      transform: translateX(-35px) translateY(15px) rotate(-15deg);
+    }
+
+    .broken-heart:hover .right {
+      transform: translateX(35px) translateY(-5px) rotate(10deg);
+    }
+
+
+
+
+        /* --- CSSでお薬を描画 --- */
+        .medicine-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: -10px;
+        }
+
+        /* カプセル */
+        .capsule {
+            width: 70px;
+            height: 32px;
+            border-radius: 16px;
+            background: linear-gradient(to right, var(--pami-pink) 50%, var(--white) 50%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset -2px -2px 5px rgba(0,0,0,0.05);
+            transform: rotate(-25deg);
+            animation: float-capsule 3.5s ease-in-out infinite alternate;
+        }
+
+        /* 錠剤 */
+        .tablet {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 2px solid var(--yami-purple);
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset -2px -2px 4px rgba(0,0,0,0.05);
+            animation: float-tablet 3.5s ease-in-out infinite alternate 1.75s;
+        }
+        /* 錠剤の中央の溝 */
+        .tablet::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0;
+            width: 100%; height: 2px;
+            background: rgba(205, 164, 222, 0.5);
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        /* お薬の浮遊アニメーション */
+        @keyframes float-capsule {
+            0% { transform: translateY(0) rotate(-25deg); }
+            100% { transform: translateY(-12px) rotate(-15deg); }
+        }
+        @keyframes float-tablet {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-12px) rotate(10deg); }
+        }
+
+        /* --- テキスト装飾 --- */
+        .error-code {
+            font-size: 5.5rem;
+            margin: 10px 0 0 0;
+            font-weight: 900;
+            color: var(--jirai-black);
+            text-shadow: 3px 3px 0px var(--pami-pink), -2px -2px 0px var(--white);
+            letter-spacing: 2px;
+            animation: glitch-text 2s infinite alternate;
+        }
+
+        @keyframes glitch-text {
+            0% { text-shadow: 3px 3px 0px var(--pami-pink); }
+            100% { text-shadow: -3px -3px 0px var(--yami-purple); }
+        }
+
+        .error-status {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--pami-pink);
+            margin-bottom: 25px;
+        }
+
+        .error-message {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            font-weight: bold;
+        }
+        
+
+        /* --- UIボタン（地雷フリル・ダーク風） --- */
+        .btn-action {
+            background-color: var(--jirai-black);
+            color: var(--white);
+            border: 2px solid var(--pami-pink);
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 0px var(--pami-pink);
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover {
+            background-color: var(--pami-pink);
+            color: var(--white);
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px var(--jirai-black);
+        }
+
+        .btn-action:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .back-link {
+            display: block;
+            color: var(--jirai-black);
+            text-decoration: none;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* --- JS演出用：画面全体の揺れ（シェイク） --- */
+        .shake-effect {
+            animation: screen-shake 0.4s ease-in-out;
+        }
+        @keyframes screen-shake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-8px, 5px) rotate(-1deg); }
+            40% { transform: translate(6px, -4px) rotate(1deg); }
+            60% { transform: translate(-5px, -2px) rotate(-0.5deg); }
+            80% { transform: translate(4px, 3px) rotate(0.5deg); }
+        }
+
+        /* --- JS演出用：落下するお薬のベース --- */
+        .falling-med {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            animation: fall-down linear forwards;
+        }
+        @keyframes fall-down {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(540deg); opacity: 0.2; }
+        }

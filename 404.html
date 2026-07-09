@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found - どこにいるの？</title>
+    <link rel="stylesheet" href="404/style.css">
+</head>
+<body>
+
+    <div class="error-container" id="mainCard">
+        <div class="broken-heart pos-1">
+  <div class="half left"><div class="heart-shape"></div></div>
+  <div class="half right"><div class="heart-shape"></div></div>
+</div>
+
+<div class="broken-heart pos-2">
+  <div class="half left"><div class="heart-shape"></div></div>
+  <div class="half right"><div class="heart-shape"></div></div>
+</div>
+        <div class="medicine-display">
+            <div class="capsule"></div>
+            <div class="tablet"></div>
+        </div>
+        
+        <h1 class="error-code">404</h1>
+        <div class="error-status">Not Found</div>
+        
+        <p class="error-message" id="errorMessage">
+            あ、れ……？どこをさがしても、<br>
+            キミのページがみつからないの。<br>
+            <span style="color: var(--pami-pink);">ねえ、わたしから逃げちゃったの……？</span><br>
+            おねがいだから、ひとりにしないで。
+        </p>
+        
+        <button class="btn-action" onclick="takeMedicine()">お薬をのむ</button>
+        <a href="/" class="back-link">現実（ホーム）へ戻る</a>
+    </div>
+
+    <script src="404/script.js">
+    </script>
+</body>
+</html>
